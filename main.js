@@ -264,3 +264,6 @@ function clearToFavourite(id) {
 
 }
 
+function toAdmin(){
+  window.location = "./admin.html";
+} 
