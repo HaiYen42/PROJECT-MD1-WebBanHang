@@ -111,7 +111,7 @@ function searchProduct() {
   renderProduct(data);
 }
 
-// localStorage.setItem("listDetail", JSON.stringify(listProduct));
+localStorage.setItem("listDetail", JSON.stringify(listProduct));
 let showDetails = document.getElementById("showDetail");
 let listDetails = JSON.parse(localStorage.getItem("listDetail"));
 //Function hiển thị chi tiết
