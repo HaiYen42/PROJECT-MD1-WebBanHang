@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./admin.css">
+   
+  </head>
+  <body>
+    <header>
+      <div class="admin col-12">
+        <h1>Administrator</h1>
+      </div>
+    </header>
+    <div class="container col-12">
+      <nav class="navbar-left col-3">
+        <div class="menuSelections" >
+          <ul>
+            <li><a href="#">CATAGORIES</a></li>
+            <li ><a href="#">PRODUCT</a></li>
+            <li ><a href="#">USER</a></li>
+            <li class="menuSelections"><a href="#">FAVORITE</a></li>
+            <li class="menuSelections"><a href="#">INVOICE</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="main col-6">
+        <div class="seachUser">
+          <input type="text" id="valueSearch"/>
+          <button id="btnInput" onclick="searchUser()">Search</button>
+        </div>
+        <div class="table1">
+          <table cellpadding="4">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Sercurity</th>
+                <th>Permission</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="tbody">
+              <!-- <tr>
+                <td>1</td>
+                <td>haiyentth42@gmail.com</td>
+                <td>abc12345</td>
+                <td>*</td>
+                <td>Active</td>
+                <td>
+                  <button>Active</button>
+                  <button>Delete</button>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="main col-3">
+        <div class="main-input">
+          <div class="label">
+            <p>Name</p>
+            <p>Picture</p>
+            <p>Price</p>
+          </div>
+          <div class="inpProduct">
+            <input type="text" class="inpProduct" id="inpName" /><br />
+            <input type="text" class="inpProduct" id="inpPic" /><br />
+            <input type="text" class="inpProduct" id="inpPrice" /> <br />
+          </div>
+        </div>
+        <div class="btn">
+          <button onclick="addProduct()">Add</button>
+          <button onclick="updateItem()">Update</button>
+        </div>
+      </div>
+    </div>
+    </div>
+   <div class="showProduct col-12 " >
+    <div class="searchProduct">
+      <input type="text" id="inptSearch"><button id="btnSeach" onclick="searchItem()">Search</button>
+    </div>
+    <div id="showProduct"></div>
+   </div>
+
+
+  </body>
+  <script src="./admin.js"></script>
+</html>

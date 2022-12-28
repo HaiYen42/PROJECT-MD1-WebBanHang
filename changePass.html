@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://kit.fontawesome.com/b04df19cee.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      h1 {
+        text-align: center;
+        color: rgb(46, 50, 97);
+      }
+      body {
+        background: linear-gradient(
+          45deg,
+          rgba(66, 183, 245, 0.8) 0%,
+          rgba(66, 245, 189, 0.4) 100%
+        );
+      }
+      .container {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        border: 1px solid black;
+        margin: 0 auto;
+        padding: 30px;
+        text-align: center;
+        background-color: white;
+      }
+      .container input {
+        margin-bottom: 20px;
+      }
+      .form-group button {
+        background: #4285f4;
+        color: #ffffff;
+        border: 0;
+        border-radius: 4px;
+        padding: 12px 12px;
+        margin-top: 15px;
+      }
+      .fa-eye-slash {
+        position: absolute;
+        left: 240px;
+        margin-top: -38px;
+      }
+      .error {
+        color: red;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Change Password</h1>
+    <div class="container">
+      <label for="">Password</label> <br />
+      <input type="password" id="password" /> <br />
+      <i onclick="showPass1()" id="showPass1" class="fa-solid fa-eye-slash"></i>
+      <div class="sercurity">
+        <div class="error" id="errorPass"></div>
+        <br />
+        <label for="email">Confirm Password</label> <br />
+        <input type="password" id="confirmPass" /> <br />
+        <i
+          onclick="showPass2()"
+          id="showPass2"
+          class="fa-solid fa-eye-slash"
+        ></i>
+        <div class="error" id="error" style="display: none">
+          Password không trùng nhau
+        </div>
+      </div>
+      <div class="form-group">
+        <button onclick="check(),checkPassword()">Check</button>
+      </div>
+    </div>
+
+    <script>
+      let password = document.getElementById("password");
+      let confirmPass = document.getElementById("confirmPass");
+      let listUser = JSON.parse(localStorage.getItem("listUser"));
+      let LoginUser=JSON.parse(localStorage.getItem("LoginUser"));
+      let checkEmail = JSON.parse(localStorage.getItem("checkEmail"));
+      let error = document.getElementById("error");
+
+      function checkPassword() {
+        let key = false;
+        var passw = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        if (password.value.match(passw)) {
+          key = true;
+        } else {
+          document.getElementById("errorPass").innerHTML =
+            "Password không đúng định dạng";
+          key = false;
+        }
+        // console.log("keypass",key);
+        return key;
+      }
+
+      function check() {
+        if (password.value == confirmPass.value && checkPassword()==true) {
+          for (let i = 0; i < listUser.length; i++) {
+            if (listUser[i].email == checkEmail[0])
+              listUser[i].password = password.value;
+          }
+          LoginUser[0].email=checkEmail[0];
+          LoginUser[0].password=password.value;
+          localStorage.setItem("LoginUser",JSON.stringify(LoginUser));
+          localStorage.setItem("listUser", JSON.stringify(listUser));
+          location.href = "login.html";
+        } else if(password.value == confirmPass.value){
+          // error.style.display = "none";
+          document.getElementById("errorPass").innerHTML =
+            "Password không đúng định dạng";
+        }else{
+            error.style.display = "block";
+        }
+      }
+
+
+      function showPass1() {
+        let showPass1 = document.getElementById("showPass1");
+        showPass1.classList.toggle("fa-eye");
+        let password = document.getElementById("password");
+        let result = password.getAttribute("type");
+        console.log(result);
+        result == "password"
+          ? password.setAttribute("type", "text")
+          : password.setAttribute("type", "password");
+      }
+      function showPass2() {
+        let showPass2 = document.getElementById("showPass2");
+        showPass2.classList.toggle("fa-eye");
+        let password = document.getElementById("confirmPass");
+        let result = password.getAttribute("type");
+        result == "password"
+          ? password.setAttribute("type", "text")
+          : password.setAttribute("type", "password");
+      }
+
+    </script>
+  </body>
+</html>

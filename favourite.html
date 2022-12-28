@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .favourite {
+      background-color: #52796f;
+      padding: 20px;
+      color: white;
+    }
+    table{
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .table1 {
+      border: 1px solid black;
+      text-align: center;
+      margin: 0px 200px;
+      /* max-width: 100%; */
+    }
+    table th {
+      border: 1px solid black;
+    }
+    table tr td {
+      border: 1px solid black;
+    }
+    .customer {
+      /* border: 1px solid black; */
+      margin: 30px 200px;
+      font-size: larger;
+      font-weight: bolder;
+      color: #023e8a;
+    }
+  </style>
+  <body>
+    <header>
+      <div class="favourite col-12">
+        <h2>FAVOURITE</h2>
+      </div>
+      <div class="customer">Customer: <span id="customer"></span>
+
+      </div>
+
+    </header>
+    <div class="table1">
+      <table cellpadding="7">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Picture</th>
+            <th>Delete</th>
+
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <!-- <tr>
+                <td>1</td>
+                <td>Apple</td>
+                <td><img src="./IMG/img1.jpg" alt="" width="200px" /></td>
+                <td><button>Delete</button></td>
+            </tr> -->
+        </tbody>
+      </table>
+    </div>
+    <script>
+        
+        let listFavourite=JSON.parse(localStorage.getItem("listFavourite"));
+        let list = JSON.parse(localStorage.getItem("listProduct"));
+        console.log(list);
+        function renderFavourite(all) {
+        let data = "";
+        for (let i = 0; i < all.length; i++) {
+          data += `
+          <tr>
+                <td>${i+1}</td>
+                <td>${all[i].name}</td>
+                <td><img src="./${all[i].image}" alt="" width="100px" /></td>
+                <td><button onclick="deleteFavour(${i})" >Delete</button></td>
+            </tr>
+            `;
+        }
+        document.getElementById("tbody").innerHTML = data;
+      
+      }
+      renderFavourite(listFavourite);   
+      function deleteFavour(id) {
+        let dataDelete=JSON.parse(localStorage.getItem("listFavourite"));
+        dataDelete.splice(id,1);
+        localStorage.setItem("listFavourite",JSON.stringify(dataDelete));
+        renderFavourite(dataDelete);
+    }
+
+    let customer=document.getElementById("customer");
+    let User=JSON.parse(localStorage.getItem("LoginUser"));
+    customer.innerHTML=User[0].email;
+    
+      </script>
+  </body>

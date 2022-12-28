@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .payment {
+      background-color: #52796f;
+      padding: 20px;
+      color: white;
+    }
+    .table1 {
+      border: 1px solid black;
+      text-align: center;
+      margin: 0px 200px;
+      width: 70%;
+    }
+    table{
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table th {
+      border: 1px solid black;
+      
+    }
+    table tr td {
+      border: 1px solid black;
+    }
+    .customer {
+      /* border: 1px solid black; */
+      margin: 20px 200px;
+      font-size: larger;
+      font-weight: bolder;
+      color: #023e8a;
+    }
+    #paid{
+      padding: 10px;
+      background-color: #6b9080;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      margin-left: 50%;
+    }
+    /* #inputQuantity{
+      width: 20px;
+    } */
+    #tbody input {
+      width: 40px;
+    }
+  </style>
+  <body>
+    <header>
+      <div class="payment col-12">
+        <h2>PAYMENT</h2>
+      </div>
+      <div class="customer">Customer: <span id="customer"></span>
+      <div class="total">The total amount you need to pay is: <span id="totalPayment"></span>
+      </div>
+
+    </header>
+    <div class="table1">
+      <table cellpadding="7">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Picture</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Delete</th>
+
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <!-- <tr>
+                <td>1</td>
+                <td>Apple</td>
+                <td><img src="./IMG/img1.jpg" alt="" width="100px" /></td>
+                <td>80</td>
+                <td><input id="quantity" type="number" /></td>
+                <td><button>Delete</button></td>
+                <td>Total</td>
+            </tr> -->
+        </tbody>
+      </table>
+    </div>
+    <Button id="paid" onclick="payment()">Payment</Button>
+    <script>
+      let listProductCart = JSON.parse(localStorage.getItem("listProductCart"));
+      function renderPayment(all) {
+        let total = 0;
+        let data = "";
+        for (let i = 0; i < all.length; i++) {
+          total = all[i].price * all[i].count;
+          data += `
+          
+          <tr>
+            <td>${i + 1}</td>
+            <td>${all[i].name}</td>
+            <td><img src="./${all[i].image}" alt="" width="100px" /></td>
+            <td>$${all[i].price}</td>
+            <td><input id="inputQuantity${all[i].id}" type="number" value="${all[i].count}" onchange="changeQuantity(${all[i].id})"/></td>
+            <td>$${total}</td>
+            <td><button onclick="deletePayment(${i})">Delete</button></td>
+          </tr>
+            `;
+
+          //   sum += parseInt(all[i].price);
+        }
+        document.getElementById("tbody").innerHTML = data;
+        // totalPayment.innerHTML = listProductCart.length;
+        document.getElementById("totalPayment").innerHTML = "$"+ Payment();
+      }
+      renderPayment(listProductCart);
+      
+
+      function deletePayment(id) {
+        console.log(id);
+        let dataDelete = JSON.parse(localStorage.getItem("listProductCart"));
+        dataDelete.splice(id, 1);
+        localStorage.setItem("listProductCart", JSON.stringify(dataDelete));
+        renderPayment(dataDelete);
+      }
+
+      let customer=document.getElementById("customer");
+      let LoginUser=JSON.parse(localStorage.getItem("LoginUser"))
+      function showCustomer() {
+        customer.innerHTML=LoginUser[0].email;
+      }
+      showCustomer()
+ 
+      function changeQuantity(id){
+        let quantity = document.getElementById(`inputQuantity${id}`);
+        let listProductCart = JSON.parse(localStorage.getItem('listProductCart'))
+        console.log(quantity.value);
+        for (i = 0 ; i < listProductCart.length ; i++){
+          if (id == listProductCart[i].id){
+              if (quantity.value > 0){
+                listProductCart[i].count = parseInt(quantity.value);
+                localStorage.setItem('listProductCart',JSON.stringify(listProductCart));
+                break;
+              } else {
+                quantity.value = 0;
+                localStorage.setItem('listProductCart',JSON.stringify(listProductCart));
+              }
+          }
+        }
+        renderPayment(listProductCart);
+      }
+
+      let totalPayment=document.getElementById("totalPayment")
+      function Payment() {
+        let totalPay=0;
+        let listProductCart = JSON.parse(localStorage.getItem('listProductCart'));
+        console.log(listProductCart);
+        for (let i = 0; i < listProductCart.length; i++) {
+          totalPay += listProductCart[i].price * listProductCart[i].count
+        }
+        console.log(totalPay);
+        return totalPay;
+      }
+  
+      function payment() {
+        localStorage.removeItem('listProductCart');
+        alert("You have already paid !")
+      }
+    </script>
+  </body>
+</html>

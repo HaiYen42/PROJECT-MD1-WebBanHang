@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/b04df19cee.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Thanh menu  -->
+        <nav class="menu-bar col-12">
+            <div class="menu-left col-4">
+               <div class="img">
+                <img src="./IMG/logo.png" alt=""> <br> <br>
+                <img src="./IMG/intro-social-1.png" alt="">
+                <img src="./IMG/intro-social-2.png" alt="">
+                <img src="./IMG/intro-social-3.png" alt="">
+                <img src="./IMG/intro-social-4.png" alt="">
+               </div>
+            </div>
+            <div class="menu-right col-8">
+                <ul>
+                    <li><a href="#">HOME</a></li>
+                    <li><a href="#" onclick="toFavourite()">FAVORITE </a></li>
+                    <li><a href="#" onclick="toRegister()">REGISTER</a></li>
+                    <li><a href="#" onclick="toPayment()">PAYMENT</a></li>
+                    <li><a href="#" onclick="login()" id="logIn" style="display: block">LOGIN</a></li>
+                    <li><a href="#" onclick="logout()" id="logOut" style="display: block">LOGOUT</a></li>
+                    <li><div class="userAction" id="userAction"><i class="fa-solid fa-user" style="color:#52796f;"></i></div></li>
+                    <li><div id="actions"></div></li>
+                </ul>
+        </nav>
+        <!--Ảnh giữa-->
+        <nav class="col-12 mainIMG">
+            <img id="image" src="./IMG/slideshow-1.jpg" alt="" width="" >
+        </nav>
+        <div class=" subheading col-12">
+            <span>FRESH FROM OUR FARM</span> <br> <br>
+            <h1>Our Product</h1> <br><br> <br>
+            <div class="img-category">
+                <img src="./IMG/product-category-1.png" alt="">
+                <img src="./IMG/product-category-2.png" alt="">
+                <img src="./IMG/product-category-3.png" alt="">
+                <img src="./IMG/product-category-4.png" alt="">
+                <img src="./IMG/product-category-5.png" alt="">
+            </div> <br><br>
+            <input type="text" id="value-search">
+            <button id="btnSeach" onclick="searchProduct()">Search</button>
+        </div>
+        <!--Đổ giao diện bằng JS-->
+    <div class="container2">
+        <div class="containerProduct" id="showProduct">
+        <!-- <div class="product">
+            <img src="./IMG/img1.jpg" alt="" width="200px" height="200px">
+            <p>Iphone 6</p>
+            <label for="price">Price</label> <br>
+            <input type="number" value="1">
+        </div> -->
+        </div>
+        <div class="about" id="showDetail" >
+            <!-- <div class="about2">
+                <div class="detail-img">
+                    <img src="./IMG/img1.jpg" alt="" width="200px">
+                </div>
+                <div class="detail-info">
+                <p>Name:</p> 
+                <p>Price:</p> 
+                 <p>Details: The customer is very important, the customer will be followed by the customer. Suspendisse sapien urn, commodo ut molestie vitae, feugia tincidunt ligula. In fact, there is no pregnancy in the valley.</p>
+                </div>
+                <span class="close" id="close" onclick="close()">&times;</span>
+            </div> -->
+        </div>
+    </div>
+    <footer>
+        <div class="footerTotal col-12">
+            <div class="footerRight col-4">
+                <h2>NEWSLETTER</h2> <br><br>
+                <p>Sign up for newsletter to receive special offers and exclusive news about FreshMart products</p>
+            </div>
+            <div class="footerCenter col-4">
+                <img src="./IMG/logo-3.png" alt="">
+                <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incid idunt ut labore et dolore magna aliqua. Ut enim ad minim ipsum dolor sit amet, consec tetur adipiscing elit ipsum dolor sit amet, consectetur adipiscing elit
+                </p>
+            </div>
+            <div class="footerLeft col-4">
+                <h2>CONTACT US</h2> <br><br>
+                <p>Address : 123 Suspendis matti, VST District, NY Accums, North American
+                    Hotline : 012345678910 - 098765432100
+                    Email : support@domain.com
+                </p>
+            </div>
+            <div class="footer-img">
+                <img src="./IMG/footer-image.png" alt="">
+            </div>
+        </div>
+        <div class="coppyRight col-12">
+       <span>Copyright © 2018 - All rights reserved. Powered by TivaTheme.</span>  
+       <img class="paymentImg" src="./IMG/payment.png" alt="">
+        </div>
+    </footer>
+</body>
+<script src="./main.js"></script>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/b04df19cee.js" crossorigin="anonymous"></script>
+  </head>
+  <style>
+    h1 {
+      text-align: center;
+      color: rgb(46, 50, 97);
+    }
+    body {
+      background: linear-gradient(
+        45deg,
+        rgba(66, 183, 245, 0.8) 0%,
+        rgba(66, 245, 189, 0.4) 100%
+      );
+    }
+
+    .container {
+      width: 300px;
+      height: 400px;
+      border: 1px solid black;
+      /* <!-- để container ra giữa--> */
+      margin: 0 auto;
+      padding: 30px;
+      text-align: center;
+      background-color: white;
+    }
+    .container input {
+      margin-bottom: 20px;
+    }
+    .error-email {
+      color: red;
+      font-size: 15px;
+    }
+    .errorpass {
+      color: red;
+      font-size: 15px;
+    }
+
+    .form-password {
+      position: relative;
+    }
+    .fa-eye-slash {
+      position: absolute;
+      left: 210px;
+      top: 20px;
+    }
+    .form-group button {
+      background: #4285f4;
+      color: #ffffff;
+      border: 0;
+      border-radius: 4px;
+      padding: 12px 12px;
+      margin-top: 15px;
+    }
+    .sercurityQues{
+      font-size: 15px;
+    }
+  </style>
+  <body>
+    <!-- register -->
+    <h1>Register</h1>
+    <div class="container">
+      <label for="email">Email</label> <br />
+      <input type="text" id="email" /> <br />
+      <div class="error-email" id="error-Email"></div>
+      <div class="error-email" id="error-Email2"></div>
+      <div class="form-password">
+        <label for="password">Password</label> <br />
+        <i onclick="showPass()" id="showPass" class="fa-solid fa-eye-slash"></i>
+        <input type="password" id="password" /> <br />
+        <div class="errorpass" id="errorPass"></div>
+      </div>
+      <div class="form-password">
+        <label for="confirmPass">Confirm password</label> <br />
+        <i
+          onclick="showPass2()"
+          id="showPass2"
+          class="fa-solid fa-eye-slash"
+        ></i>
+        <input type="password" id="confirmPass" /> <br />
+        <div class="errorpass" id="errorconfirmPass"></div>
+      </div>
+      <div class="error-confirmPass" style="display: none">error</div>
+      <div class="sercurityQues">
+        <p > Security Question: <br> Where is your favorite place to travel?</p>
+        <input type="text" id="sercurityQues">
+      </div>
+      <div class="form-group">
+        <button onclick=" checkEmail(),checkPassword(),confirmPass(),checkSameEmail()">Register</button>
+      </div>
+      <p id="emailExist">
+        Bạn đã có tài khoản rồi
+        <span
+          id="redirectRegister"
+          onclick="redirectLogin()"
+          style="color: red"
+        >
+          Login
+        </span>
+      </p>
+    </div>
+    <script>
+      function redirectLogin() {
+        location.href = "login.html"; //chuyển trang đăng ký cách 1
+        //  window.location="./login.html" //Chuyển trang đăng ký cách 2
+      }
+
+      let flag;
+      //   console.log(flag);
+      let errorEmail = document.getElementById("error-Email");
+      let email = document.getElementById("email");
+      let password = document.getElementById("password");
+      let errorEmail2 = document.getElementById("error-Email2");
+      let sercurityQues = document.getElementById("sercurityQues");
+      function checkEmail() {
+        let key = false;
+        if (email.value != "") {
+          key = true;
+          errorEmail.innerHTML = "";
+        } else {
+          errorEmail.innerHTML = "Không để trống email";
+          document.getElementById("emailExist").style.display="none"
+          key = false;
+        }
+        // console.log("key", key);
+        return key;
+      }
+
+      let inputtext = document.getElementById("password");
+      let confirmpsw = document.getElementById("confirmPass");
+      function checkPassword() {
+        let key = false;
+        var passw = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        if (inputtext.value.match(passw)) {
+          //   alert("Correct. Please Login !");
+          //   window.location = "./login.html";
+        //   console.log("Password đúng định dạng");
+          key = true;
+        } else {
+          document.getElementById("errorPass").innerHTML =
+            "Password không đúng định dạng, password phải bao gồm ít nhất 8 ký tự cả chữ và số";
+          key = false;
+        }
+        // console.log("keypass",key);
+        return key;
+      }
+      function confirmPass() {
+        let key = false;
+        if (inputtext.value == confirmpsw.value) {
+        //   console.log("Correct");
+          key = true;
+        } else {
+          //   console.log(" Bạn đã nhập sai password! ");
+          document.getElementById("errorconfirmPass").innerHTML =
+            "Không trùng password, vui lòng nhập lại";
+        }
+        // console.log("confrkey",key);
+        return key;
+      }
+
+
+      function checkSameEmail() {
+        // Tạo mảng lưu vào LocalStorage
+        let listUser = JSON.parse(localStorage.getItem("listUser"));
+        console.log("1111", listUser);
+        if (checkEmail() == true && checkPassword()==true && confirmPass()==true) {
+          if (listUser == null) {
+            listUser = [];
+            let obj = {
+              email: email.value,
+              password: password.value,
+              status: "Active",
+              login: true,
+              id: listUser.length,
+              Sercurity: sercurityQues.value,
+            };
+                listUser.push(obj);
+                localStorage.setItem("listUser", JSON.stringify(listUser));
+                location.href = "login.html"
+            }
+            else{
+                for (let i = 0; i < listUser.length; i++) {
+                if (listUser[i].email == email.value) {
+                flag = false;
+                console.log("flage",flag);
+                console.log("trùng email",email);
+             
+                break;
+                } else {
+                flag = true;
+                console.log("flage",flag);
+                console.log("ko trùng email");
+              
+                }
+          }
+          if ( flag == true) {
+              let obj = {
+              email: email.value,
+              password: password.value,
+              status: "Active",
+              login: true,
+              id: listUser.length,
+              Sercurity: sercurityQues.value,
+              };
+                listUser.push(obj);
+                localStorage.setItem("listUser", JSON.stringify(listUser));
+                document.getElementById("error-Email2").innerHTML="";
+                location.href = "login.html"
+          }
+          else{
+            document.getElementById("error-Email2").innerHTML="Trùng Email, vui lòng login"
+            document.getElementById("emailExist").style.display="block";
+          }
+            }
+        }
+        }
+
+      function showPass() {
+        let showPass = document.getElementById("showPass");
+        showPass.classList.toggle("fa-eye");
+        let showPassword = document.getElementById("password");
+        let result = showPassword.getAttribute("type");
+        result == "password"
+          ? showPassword.setAttribute("type", "text")
+          : showPassword.setAttribute("type", "password");
+      }
+      function showPass2() {
+        let showPass = document.getElementById("showPass2");
+        showPass.classList.toggle("fa-eye");
+        let showPassword = document.getElementById("confirmPass");
+        let result = showPassword.getAttribute("type");
+        result == "password"
+          ? showPassword.setAttribute("type", "text")
+          : showPassword.setAttribute("type", "password");
+      }
+
+   
+    
+    </script>
+  </body>
+</html>

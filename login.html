@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://kit.fontawesome.com/b04df19cee.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      h1 {
+        text-align: center;
+        color: rgb(46, 50, 97);
+      }
+      body {
+        background: linear-gradient(
+          45deg,
+          rgba(66, 183, 245, 0.8) 0%,
+          rgba(66, 245, 189, 0.4) 100%
+        );
+      }
+      .container {
+        width: 300px;
+        height: 300px;
+        border: 1px solid black;
+        margin: 0 auto;
+        padding: 30px;
+        text-align: center;
+        background-color: white;
+      }
+      .container input {
+        margin-bottom: 20px;
+      }
+      .error-email {
+        color: red;
+        font-size: 15px;
+      }
+      .error-password {
+        color: red;
+        font-size: 15px;
+      }
+      .error-confirmPass {
+        color: red;
+      }
+      .form-password {
+        position: relative;
+      }
+      .fa-eye-slash {
+        position: absolute;
+        left: 210px;
+        margin-top: 5px;
+      }
+      .form-group button {
+        background: #4285f4;
+        color: #ffffff;
+        border: 0;
+        border-radius: 4px;
+        padding: 12px 12px;
+        margin-top: 15px;
+      }
+
+      #notExist {
+        margin-top: 20px;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>LOGIN</h1>
+    <div class="container">
+      <label for="email">Email</label> <br />
+      <!--for trung voi id -->
+      <input type="text" id="email" /> <br />
+      <div class="error-email" id="errorEmail"></div>
+      <div class="form-password">
+        <label for="password">Password</label> <br />
+        <i onclick="showPass()" id="showPass" class="fa-solid fa-eye-slash"></i>
+        <input type="password" id="password" /> <br />
+      </div>
+      <div class="error-password" id="errorPass"></div>
+      <div class="form-group">
+        <button onclick="login()">Login</button>
+      </div>
+      <div id="notExist" style="display: none">
+        <p>
+          Bạn chưa có có tài khoản
+          <span id="redirectLogin" onclick="redirectLogin()" style="color: red">
+            Register
+          </span>
+        </p>
+      </div>
+      <div>
+        <span
+          id="redirectRegister"
+          onclick="redirectForgot()"
+          style="font: size 10px; color: red; display: none"
+        >
+          Forgot Password
+        </span>
+      </div>
+    </div>
+
+    <script>
+      function redirectForgot() {
+        window.location = "./forgotPass.html";
+      }
+      function redirectLogin() {
+        window.location = "./Register.html";
+      }
+
+      let listUser = JSON.parse(localStorage.getItem("listUser"));
+      let email = document.getElementById("email");
+      let password = document.getElementById("password");
+      let notExist = document.getElementById("notExist");
+      let redirectRegister = document.getElementById("redirectRegister");
+      let LoginUser = JSON.parse(localStorage.getItem("LoginUser"));
+      let inactive = document.getElementById("inactive");
+
+      function login() {
+        for (let i = 0; i < listUser.length; i++) {
+          if (
+            email.value == listUser[i].email &&
+            password.value == listUser[i].password
+          ) {
+            //Push đè LoginUser;
+            key = true;
+            if (listUser[i].status === "Active") {
+              LoginUser = [];
+              LoginUser.push(listUser[i]);
+              localStorage.setItem("LoginUser", JSON.stringify(LoginUser));
+              window.location = "./index.html";
+            } else if (listUser[i].status === "Inactive") {
+              document.getElementById("errorPass").innerHTML =
+              "Tài khoản của bạn đang bị khóa.";
+            }
+          } else if (email.value == listUser[i].email) {
+            document.getElementById("errorPass").innerHTML =
+              " Bạn đã nhập sai Password";
+            notExist.style.display = "none";
+            redirectRegister.style.display = "block";
+            break;
+          } else {
+            notExist.style.display = "block";
+          }
+        }
+      }
+
+      function showPass() {
+        let showPass = document.getElementById("showPass");
+        showPass.classList.toggle("fa-eye");
+        let showPassword = document.getElementById("password");
+        let result = showPassword.getAttribute("type");
+        result == "password"
+          ? showPassword.setAttribute("type", "text")
+          : showPassword.setAttribute("type", "password");
+      }
+    </script>
+  </body>
+</html>

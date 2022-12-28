@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://kit.fontawesome.com/b04df19cee.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      h1 {
+        text-align: center;
+        color: rgb(46, 50, 97);
+      }
+      body {
+        background: linear-gradient(
+          45deg,
+          rgba(66, 183, 245, 0.8) 0%,
+          rgba(66, 245, 189, 0.4) 100%
+        );
+      }
+      .container {
+        width: 300px;
+        height: 300px;
+        border: 1px solid black;
+        margin: 0 auto;
+        padding: 30px;
+        text-align: center;
+        background-color: white;
+      }
+      .container input {
+        margin-bottom: 20px;
+      }
+      .error-email {
+        color: red;
+        font-size: 15px;
+      }
+      .error-password {
+        color: red;
+        font-size: 15px;
+      }
+      .error-confirmPass {
+        color: red;
+      }
+      /* .sercurity {
+        position: relative;
+      } */
+      .fa-eye-slash {
+        position: absolute;
+        left: 210px;
+        margin-top: 5px;
+      }
+      .form-group button {
+        background: #4285f4;
+        color: #ffffff;
+        border: 0;
+        border-radius: 4px;
+        padding: 12px 12px;
+        margin-top: 15px;
+      }
+      .error{
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Forgot Password</h1>
+    <div class="container">
+      <label for="email">Email</label> <br />
+      <input type="text" id="email" /> 
+      <div class=" sercurity"> <br>
+        <p>Where is your favorite place to travel?</p>
+        <input type="text" id="sercurity" /> <br />
+      </div>
+        <div class="error" id="error" style="display: none;">Bạn đã nhập sai câu hỏi bảo mật
+        <span
+        id="redirectRegister"
+        onclick="redirectRegis()"
+        style="color: red">Register
+      </span>
+    </div>
+      <div class="form-group">
+        <button onclick="check()">Check</button>
+      </div>
+    </div>
+    <script>
+        let email=document.getElementById("email");
+        let sercurity=document.getElementById("sercurity");
+        let listUser=JSON.parse(localStorage.getItem("listUser"));
+        function check() {
+            for (let i = 0; i < listUser.length; i++) {
+                console.log("111");
+                if (listUser[i].email==email.value &&listUser[i].Sercurity==sercurity.value) {
+                    let checkEmail=[];
+                    checkEmail.push(listUser[i].email);
+                    localStorage.setItem("checkEmail",JSON.stringify(checkEmail));
+                    location.href = "changePass.html"
+                } else {
+                    document.getElementById("error").style.display="block"
+                }
+                
+            }
+        }
+        function redirectRegis() {
+          location.href = "Register.html"
+        }
+    </script>
+  </body>
+</html>
