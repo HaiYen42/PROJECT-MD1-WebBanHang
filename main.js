@@ -20,68 +20,69 @@ function showBanner() {
 }
 setInterval(showBanner, 3000);
 // Đổ JS
-// let listProduct = [
-//   {
-//     name: "Apple",
-//     price: "80",
-//     image: "IMG/img1.jpg",
-//     id: 0,
-//     count: 1,
-//   },
-//   {
-//     name: "Grape",
-//     price: "100",
-//     image: "IMG/img2.jpg",
-//     id: 1,
-//     count: 1,
-//   },
-//   {
-//     name: "Lemon",
-//     price: "50",
-//     image: "IMG/img3.jpg",
-//     id: 2,
-//     count: 1,
-//   },
-//   {
-//     name: "Bread",
-//     price: "70",
-//     image: "IMG/img4.jpg",
-//     id: 3,
-//     count: 1,
-//   },
-//   {
-//     name: "Strawberry",
-//     price: "60",
-//     image: "IMG/img5.jpg",
-//     id: 4,
-//     count: 1,
-//   },
-//   {
-//     name: "Avocado",
-//     price: "90",
-//     image: "IMG/img6.jpg",
-//     id: 5,
-//     count: 1,
-//   },
-//   {
-//     name: "Lemon",
-//     price: "40",
-//     image: "IMG/img7.jpg",
-//     id: 6,
-//     count: 1,
-//   },
-//   {
-//     name: "Peach",
-//     price: "90",
-//     image: "IMG/img8.jpg",
-//     id: 7,
-//     count: 1,
-//   },
-// ];
-// // Lưu trên LocalStorage
-// localStorage.setItem("listProduct", JSON.stringify(listProduct));
+let listProduct = [
+  {
+    name: "Apple",
+    price: "80",
+    image: "IMG/img1.jpg",
+    id: 0,
+    count: 1,
+  },
+  {
+    name: "Grape",
+    price: "100",
+    image: "IMG/img2.jpg",
+    id: 1,
+    count: 1,
+  },
+  {
+    name: "Lemon",
+    price: "50",
+    image: "IMG/img3.jpg",
+    id: 2,
+    count: 1,
+  },
+  {
+    name: "Bread",
+    price: "70",
+    image: "IMG/img4.jpg",
+    id: 3,
+    count: 1,
+  },
+  {
+    name: "Strawberry",
+    price: "60",
+    image: "IMG/img5.jpg",
+    id: 4,
+    count: 1,
+  },
+  {
+    name: "Avocado",
+    price: "90",
+    image: "IMG/img6.jpg",
+    id: 5,
+    count: 1,
+  },
+  {
+    name: "Lemon",
+    price: "40",
+    image: "IMG/img7.jpg",
+    id: 6,
+    count: 1,
+  },
+  {
+    name: "Peach",
+    price: "90",
+    image: "IMG/img8.jpg",
+    id: 7,
+    count: 1,
+  },
+];
+// Lưu trên LocalStorage
+localStorage.setItem("listProduct", JSON.stringify(listProduct));
 let list = JSON.parse(localStorage.getItem("listProduct"));
 function renderProduct(all) {
+  if(all!=null) {
   let data = "";
   for (let i = 0; i < all.length; i++) {
     data += `
@@ -96,7 +97,7 @@ function renderProduct(all) {
         </div>
         `;
   }
-  document.getElementById("showProduct").innerHTML = data;
+  document.getElementById("showProduct").innerHTML = data;}
 }
 renderProduct(list);
 function searchProduct() {
